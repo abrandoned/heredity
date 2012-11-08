@@ -9,6 +9,12 @@ module Heredity
 
         klass.class_eval do
           @_inheritable_class_instance_variables = [ :_inheritable_class_instance_variables ]
+
+          class << self
+            alias_method :inheritable_attribute, :inheritable_attributes
+            alias_method :class_inheritable_attributes, :inheritable_attributes
+            alias_method :class_inheritable_attribute, :inheritable_attributes
+          end
         end
       end
     end

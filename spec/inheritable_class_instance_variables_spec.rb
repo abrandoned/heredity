@@ -28,6 +28,14 @@ describe Heredity::InheritableClassInstanceVariables do
 
   class TestEditThirdTierWithoutEdit < TestEditSecondTier; end
 
+  # API
+  [TestInheritTop, TestSecondTier, TestThirdTier].each do |test_class|
+    specify { test_class.should respond_to(:inheritable_attributes) }
+    specify { test_class.should respond_to(:inheritable_attribute) }
+    specify { test_class.should respond_to(:class_inheritable_attributes) }
+    specify { test_class.should respond_to(:class_inheritable_attribute) }
+  end
+
   context "when overiding child class instance varialbes" do 
     describe "single tier inheritance" do 
       it "overrides the instance variables with the child defined values" do 
