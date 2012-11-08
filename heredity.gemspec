@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Heredity::VERSION
   gem.authors       = ["Brandon Dewitt"]
   gem.email         = ["brandonsdewitt@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{provides class inheritable attributes outside of rails and other gem/frameworks}
+  gem.summary       = %q{inherit class instance variables}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
