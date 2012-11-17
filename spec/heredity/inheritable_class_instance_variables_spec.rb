@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'heredity/inheritable_class_instance_variables'
 
 describe Heredity::InheritableClassInstanceVariables do
 
