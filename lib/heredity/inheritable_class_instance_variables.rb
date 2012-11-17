@@ -3,6 +3,8 @@ require 'thread'
 module Heredity
   module InheritableClassInstanceVariables
     def self.included(klass)
+      return if klass.respond_to?(:_inheritable_class_instance_variables)
+
       Thread.exclusive do
         klass.extend(::Heredity::InheritableClassInstanceVariables::ClassMethods)
 
@@ -19,6 +21,10 @@ module Heredity
     end
 
     module ClassMethods
+      def _inheritable_class_instance_variables
+        @_inheritable_class_instance_variables
+      end
+
       def inheritable_attributes(*args)
         Thread.exclusive do
           args.flatten.compact.uniq.each do |class_instance_variable|
