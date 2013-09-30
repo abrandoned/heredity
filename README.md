@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-#### On inherit
+#### Inheritance hooks
 
 To use Heredity's inheritance hooks, simply call `on_herit` with a block:
 
@@ -28,6 +28,7 @@ class Foo
     puts 'Child of Foo!'
   end
 end
+```
 
 This is very useful for injecting behavior into subclasses that is dependent on class state (e.g. behavior that relies on the columns of an active record model).
 
