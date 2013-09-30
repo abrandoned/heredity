@@ -40,8 +40,10 @@ Because class instance variables in Ruby are not inherited (and rightfully so), 
 class Foo
   include Heredity
 
+  # Define inheritable attributes
   inheritable_attributes :bar
 
+  # Initialize inheritable attributes (so there's something to copy).
   self.bar = {}
 end
 ```
