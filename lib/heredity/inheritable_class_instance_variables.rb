@@ -2,10 +2,13 @@ require 'thread'
 
 module Heredity
   module InheritableClassInstanceVariables
+
+    MUTEX_FOR_THREAD_EXCLUSIVE = Mutex.new
+
     def self.included(klass)
       return if klass.respond_to?(:_inheritable_class_instance_variables)
 
-      Thread.exclusive do
+      MUTEX_FOR_THREAD_EXCLUSIVE.synchronize do
         klass.extend(::Heredity::InheritableClassInstanceVariables::ClassMethods)
 
         klass.class_eval do
@@ -26,7 +29,7 @@ module Heredity
       end
 
       def inheritable_attributes(*args)
-        Thread.exclusive do
+        MUTEX_FOR_THREAD_EXCLUSIVE.synchronize do
           args.flatten.compact.uniq.each do |class_instance_variable|
             unless @_inheritable_class_instance_variables.include?(class_instance_variable)
               @_inheritable_class_instance_variables << class_instance_variable
@@ -54,7 +57,7 @@ module Heredity
       def inherited(klass)
         super # ActiveRecord needs the inherited hook to setup fields
 
-        Thread.exclusive do
+        MUTEX_FOR_THREAD_EXCLUSIVE.synchronize do
           @_inheritable_class_instance_variables.each do |attribute|
             attr_sym = :"@#{attribute}"
             klass.instance_variable_set(attr_sym, self.instance_variable_get(attr_sym))
